@@ -49,7 +49,7 @@ let fun = api.compile(matmul)
 let result = fun({A, B})
 ```
 
-To learn more about the different ways of using Rhyme, including different APIs, check out the [documentation](/docs/frontends).
+To learn more about the different ways of using Rhyme, including different APIs, check out the [documentation](/reference).
 
 
 
