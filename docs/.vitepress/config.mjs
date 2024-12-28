@@ -1,5 +1,8 @@
 import { defineConfig } from 'vitepress'
 
+import container from 'markdown-it-container';
+import { renderSandbox } from 'vitepress-plugin-sandpack';
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Rhyme",
@@ -26,7 +29,15 @@ export default defineConfig({
           { text: 'Reference', link: '/reference' },
           { text: 'Examples', link: '/examples' },
         ]
-      },/*{
+      },{
+        text: 'Interactive Demos',
+        items: [
+          { text: 'Display', link: '/display' },
+          { text: 'Tables', link: '/tables' },
+          { text: 'SVG', link: '/svg' },
+          { text: 'React', link: '/react' },
+        ]
+      }/*{
         text: 'Examples',
         items: [
           { text: 'Markdown Examples', link: '/xx-markdown-examples' },
@@ -39,5 +50,18 @@ export default defineConfig({
       { icon: 'npm', link: 'https://www.npmjs.com/package/rhyme-lang' },
       { icon: 'github', link: 'https://github.com/rhyme-lang' }
     ]
-  }
+  },
+
+  markdown: {
+    config(md) {
+      md
+        // the second parameter is html tag name
+        .use(container, 'sandbox', {
+          render (tokens, idx) {
+            return renderSandbox(tokens, idx, 'sandbox');
+          },
+        });
+    },
+  },
+
 })

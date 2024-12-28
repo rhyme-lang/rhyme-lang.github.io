@@ -1,6 +1,8 @@
 // https://vitepress.dev/guide/custom-theme
 import { h } from 'vue'
 import DefaultTheme from 'vitepress/theme-without-fonts'
+import { Sandbox } from 'vitepress-plugin-sandpack';
+import 'vitepress-plugin-sandpack/dist/style.css';
 import './style.css'
 
 /** @type {import('vitepress').Theme} */
@@ -13,5 +15,6 @@ export default {
   },
   enhanceApp({ app, router, siteData }) {
     // ...
-  }
+    app.component('Sandbox', Sandbox)
+  },
 }
