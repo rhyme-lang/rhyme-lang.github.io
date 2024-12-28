@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rhyme Sandbox</title>
+    <!-- <script src="http://unpkg.com/rhyme-lang/umd/rhyme-lang.min.js"></script> -->
+    <!-- <script src="http://localhost:5173/rhyme-lang.min.js"></script> -->
+    <!-- <script src="../umd/rhyme-lang.min.js"></script> -->
+    <script src="rhyme-lang.min.js"></script>
+    <script>
+      // minimal csv parser -- use a proper csv library for any production code
+      function parseCSV(data) {
+        data = data.split("\n")
+        let names = data[0].split(",")
+        let types = data[1].split(",").map(x => isNaN(Number(x)) ? (x => x.trim()) : (x => Number(x)))
+        let data1 = []
+        for (let i = 1; i < data.length; i++) {
+          let line = data[i]
+          let items = line.split(",")
+          let row = {}
+          for (let i in names)
+            row[names[i]] = types[i](items[i])
+          data1.push(row)
+        }
+        return data1
+      }
+      function loadCSV(url) {
+        return fetch(url).then(p => p.text()).then(p => parseCSV(p))
+      }
+    </script>
+    <style type="text/css">
+      body {
+        margin: 40px
+        auto;
+        max-width: 650px;
+        line-height: 1.4;
+        font-size: 16px;
+        font-family: sans-serif;
+        color: #333;
+        padding: 0
+        10px
+      }
+      h1, h2, h3 {
+        line-height: 1.1
+      }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script>
+        try { rhyme } catch (e) { throw e } // XXX
+        let api = rhyme.api
+        let domParent = document.getElementById("root")
+        let display = x => api.display(x, domParent)
+        let H2 = x => display({"$display": "dom", "type": "h2", children: [x]})
+    </script>
+    <script src="query.js"></script>
+</body>
