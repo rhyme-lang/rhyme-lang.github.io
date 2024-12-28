@@ -17,16 +17,26 @@ export default defineConfig({
         text: 'Introduction',
         items: [
           { text: 'Overview', link: '/overview' },
-        ],
+          { text: 'Getting Started', link: '/getting-started' },
+          { text: 'Development Setup', link: '/development' },
+        ]
+      }, {
+        text: 'Documentation',
+        items: [
+          { text: 'Reference', link: '/reference' },
+          { text: 'Examples', link: '/examples' },
+        ]
+      },/*{
         text: 'Examples',
         items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
+          { text: 'Markdown Examples', link: '/xx-markdown-examples' },
+          { text: 'Runtime API Examples', link: '/xx-api-examples' }
         ]
-      }
+      }*/
     ],
 
     socialLinks: [
+      { icon: 'npm', link: 'https://www.npmjs.com/package/rhyme-lang' },
       { icon: 'github', link: 'https://github.com/rhyme-lang' }
     ]
   }
