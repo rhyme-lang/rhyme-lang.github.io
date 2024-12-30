@@ -36,6 +36,7 @@ export default defineConfig({
           { text: 'Tables', link: '/tables' },
           { text: 'SVG', link: '/svg' },
           { text: 'React', link: '/react' },
+          { text: 'Command Line', link: '/command-line' },
         ]
       }/*{
         text: 'Examples',

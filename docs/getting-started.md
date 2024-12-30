@@ -96,4 +96,5 @@ echo '[1,2,3,4]' | rhyme 'sum stdin.*'
 
 When given an argument ending in `.rh`, as in `rhyme query.rh`, Rhyme will treat it as a file name to load the query from.
 
+More examples of command-line usage are shown here: [command-line examples](/command-line)
 

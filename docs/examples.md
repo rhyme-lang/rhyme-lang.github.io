@@ -23,3 +23,10 @@ running Rhyme in the browser:
 - [SVG](/svg)
 
 - [React](/react)
+
+
+Rhyme also comes with a commond-line tool that can be used
+interactively or from shell scripts:
+
+- [Command-Line Usage](/command-line)
+
