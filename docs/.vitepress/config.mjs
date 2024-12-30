@@ -29,7 +29,7 @@ export default defineConfig({
           { text: 'Reference', link: '/reference' },
           { text: 'Examples', link: '/examples' },
         ]
-      },{
+      }, {
         text: 'Interactive Demos',
         items: [
           { text: 'Display', link: '/display' },
@@ -38,13 +38,7 @@ export default defineConfig({
           { text: 'React', link: '/react' },
           { text: 'Command Line', link: '/command-line' },
         ]
-      }/*{
-        text: 'Examples',
-        items: [
-          { text: 'Markdown Examples', link: '/xx-markdown-examples' },
-          { text: 'Runtime API Examples', link: '/xx-api-examples' }
-        ]
-      }*/
+      }
     ],
 
     search: {
