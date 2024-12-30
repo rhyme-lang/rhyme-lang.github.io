@@ -122,3 +122,34 @@ let udf = {
 }
 let query = api.apply("multiply10", "data.*.value")
 ```
+
+### Generated Code
+
+After compiling a Rhyme query, we can inspect the generated code:
+```js
+// define the query
+let query = rh`{ data.*.key: sum(data.*.value) }`
+
+// use the api.compile function to compile the query
+let func = api.compile(query)
+
+// print generated code
+console.log(func.explain.codeString)
+
+```
+
+
+:::details Show output
+```js
+inp => {
+    let tmp = {}
+    tmp[0] ??= {}
+    for (let x in inp['data']) {
+        tmp[0][inp['data'][x]['key']] ??= 0
+        tmp[0][inp['data'][x]['key']] += inp['data'][x]['value']
+    }
+    return tmp[0]
+}
+````
+:::
+
