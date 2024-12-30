@@ -47,6 +47,10 @@ export default defineConfig({
       }*/
     ],
 
+    search: {
+      provider: 'local'
+    },
+
     socialLinks: [
       { icon: 'npm', link: 'https://www.npmjs.com/package/rhyme-lang' },
       { icon: 'github', link: 'https://github.com/rhyme-lang' }
