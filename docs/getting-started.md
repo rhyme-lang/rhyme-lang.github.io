@@ -28,10 +28,10 @@ let data = [
     { key: "A", value: 30 }
 ]
 
-let query = {
-    total: api.sum("data.*.value"),
-    "data.*.key": api.sum("data.*.value"),
-}
+let query = rh`{
+    data.*.key: sum(data.*.value),
+    total: sum(data.*.value)
+}`
 let res = api.compile(query)({ data })
 console.log("Result: " + JSON.stringify(res))
 ```
@@ -72,8 +72,8 @@ Shown below is a simple complete example HTML file:
                     "$display": "select",
                     data: data
                 }
-                let res = api.query(query)
-                api.display(res({}), domParent)
+                let func = api.query(query)
+                api.display(func({}), domParent)
             </script>
         </body>
 </html>

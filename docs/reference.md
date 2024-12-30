@@ -4,9 +4,10 @@ outline: deep
 
 # Reference
 
-Before diving into different kinds of operators, we will first look the steps involved in running a Rhyme query.
+Before diving into different kinds of operators, we will first look the steps involved in 
+running a Rhyme query.
 We assume that you have already installed the `rhyme-lang` package in your project.
-If not, please head out to the [installation](/getting-started#installation) page.
+If not, please head over to the [installation](/getting-started#installation) page.
 
 Rhyme works by compiling the given query into a function that can be run on data.
 The compilation step is done by the `api.compile` function.
@@ -14,26 +15,39 @@ This returns a JS function which can be run on any input data to get the result 
 
 ```js
 // import the library
-let api = require("rhyme-lang")
+let { api } = require("rhyme-lang")
 
 // define the query
-let query = {
-    "data.*.key": api.sum("data.*.value")
-}
+let query = rh`{ data.*.key: sum(data.*.value) }`
 
 // use the api.compile function to compile the query
 let func = api.compile(query)
 
 // run the compiled function on some sample data
 let sampleData = [
-        { key: "A", value: 10 },
-        { key: "B", value: 20 },
-        { key: "A", value: 30 }
-    ]
+    { key: "A", value: 10 },
+    { key: "B", value: 20 },
+    { key: "A", value: 30 }
+]
 let result = func({"data": sampleData})
 ```
 
 Now that we have seen the basic steps involved in running a Rhyme query, let us look at the different kinds of operators available in Rhyme.
+
+### Metaprogramming API
+
+We have seen above how to use the ``rh`{ data.*.key: ...}` `` syntax to specify a Rhyme query.
+
+To facilitate metaprogramming and composition of queries in JS, Rhyme also allows to
+specify the query using JS objects directly:
+
+````js
+let query = {
+    "data.*.key": api.sum("data.*.value")
+}
+````
+
+
 
 ### Simple Indexing
 Like JQ, we can use the `.` operator to index into objects and arrays. For instance the query `data.0` will return the first element of the array `data`.
@@ -44,7 +58,7 @@ We can use the `*` operator to iterate over arrays and compute aggregations. For
 iterate through `data` and collect all the `value` attributes.
 
 ```js
-["data.*.value"] // collect all the values
+[data.*.value] // collect all the values
 ```
 
 Note that if no top-level aggregation is specified explicitly, the first value is returned. 
@@ -56,23 +70,23 @@ to allow for more complex queries.
 ### Aggregations
 
 We can use aggregate operators to compute aggregations over iterated values.
-For instance, the query `api.sum(data.*.value)` will compute the sum of all the values.
+For instance, the query `sum(data.*.value)` will compute the sum of all the values.
 Below is a list of all the aggregate operators currently available in Rhyme.
 
 | Aggregation | Description |
 | ----------- | ----------- |
-| `api.sum` | Computes the sum of the values |
-| `api.min` | Computes the minimum of the values |
-| `api.max` | Computes the maximum of the values |
-| `api.mean` | Computes the mean of the values |
-| `api.count` | Computes the number of values |
-| `api.array` or `[ ]` | Collects all the values into an array |
+| `sum` | Computes the sum of the values |
+| `min` | Computes the minimum of the values |
+| `max` | Computes the maximum of the values |
+| `mean` | Computes the mean of the values |
+| `count` | Computes the number of values |
+| `array` or `[ ]` | Collects all the values into an array |
 
 ### Arithmetic (Binary Operators)
 Rhyme supports the usual basic arithmetic operations like, addition,
 subtraction, multiplication, division, etc.
 
-| Opeartor | Description |
+<!-- | Operator | Description |
 | -------- | ----------- |
 | `api.plus` | Addition |
 | `api.minus` | Subtraction |
@@ -80,8 +94,9 @@ subtraction, multiplication, division, etc.
 | `api.div` | Division |
 | `api.fdiv` | Floor division |
 | `api.mod` | Modulo |
+ -->
 
-### Group-bys
+### Grouping
 Group-bys in Rhyme are implicitly expressed using keys. For instance, having `data.*.key` as the key would do
 a group-by on the `key` attribute of the data and whenever `data.*` is iterated within this key, it will only
 iterate over the values that have the same key.
@@ -90,37 +105,48 @@ For instance, the query below will do a group-by on the `key1` and `key2` attrib
 
 ```js
 {
-  "data.*.key1": {
-    "data.*.key2": api.sum("data.*.value")
-  }
+    data.*.key1: {
+        data.*.key2: sum(data.*.value)
+    }
 }
 ```
 
 ### Joins
-Rhyme currently only support equi-joins. Joins between two objects are essentially expressed as doing a 
+Rhyme supports efficient equi-joins in a natural way. Joins between two objects are expressed as 
 lookup on the other object based on the key.
-The following query will do a join between `data1` and `data2` based on the `key` attribute and compute
-the sum of products of the `value` attributes.
-`api.keyval` is used to specify expression as keys since JSON only supports string keys.
+The following query will do a join between `data1` and `data2` based on 
+the `key` attribute and compute the sum of products of the `value` attributes.
 
 ```js
 {
-  "-": api.keyval(api.get("data2", "data1.*.key")) (
-    api.sum(api.times("data2.*.value", "data1.*.value"))
-  )
+    data2.(data1.*.key): sum(data2.*.value * data1.*.value)
 }
 ```
 
+This example assumes that `data2` can be directly indexed by the `key` field of `data1`. 
+If this is not the case, `data2` needs to be grouped by the matching key (as shown above) 
+beforehand.
+
+
 ### UDFs
 Rhyme supports user-defined functions (UDFs) which can be used to express custom computations.
-UDFs are expressed as using normal JS functions and called using `api.apply`.
-For instance, the following query will apply the `multiply10` function to all the values in `data.*.value`.
+UDFs are expressed as using normal JS functions that are passed as additional input when
+the query is run.
+For instance, the following query will apply the `multiply10` function to all the values 
+in `data.*.value`.
 
 ```js
-let udf = {
-  multiply10: x => x * 10
-}
-let query = api.apply("multiply10", "data.*.value")
+// define udfs
+let udf = { multiply10: x => x * 10 }
+
+// define query
+let query = rh`udf.multiply10(data.*.value)`
+
+// compile query
+let func = api.compile(query)
+
+// pass udf as additional input when running query
+let result = func({"data": sampleData, "udf": udf})
 ```
 
 ### Generated Code

@@ -26,14 +26,12 @@ let data = [
     {"key": "B", "value": 20},
     {"key": "A", "value": 45},
 ]
-// rhyme-query
-let query = {
-    "data.*.key": api.sum("data.*.value")
-}
+// rhyme query
+let query = rh`{ data.*.key: sum(data.*.value) }`
 // compile 
-let fun = api.compile(query)
+let func = api.compile(query)
 // run the compiled query
-let result = fun({data})
+let result = func({data})
 ```
 
 Likewise, we can also express other types of workloads like tensor computations:
@@ -41,12 +39,12 @@ Likewise, we can also express other types of workloads like tensor computations:
 let A = [[1, 2], [3, 4]]
 let B = [[5, 6], [7, 8]]
 
-// rhyme-query
-let matmul = {"*i": {"*j": api.sum("A.*i.*k * B.*k.*j")}}
+// rhyme query
+let matmul = rh`{ *i: { *j: sum(A.*i.*k * B.*k.*j) } }`
 // compile
-let fun = api.compile(matmul)
+let func = api.compile(matmul)
 // run the compiled query
-let result = fun({A, B})
+let result = func({A, B})
 ```
 
 To learn more about the different ways of using Rhyme, including different APIs, check out the [documentation](/reference).
@@ -55,9 +53,13 @@ To learn more about the different ways of using Rhyme, including different APIs,
 
 ## Useful Links
 
+Presentations
+
 - Slides presented at the 24th IFIP WG 2.11 Meeting (Dec 2024): [Rhyme: A Data-Centric Multi-Paradigm Query Language](https://docs.google.com/presentation/d/1yljJLrcbHdGiKhMhAoQkgLJnMqCgEc5Uy6Se0Dz0V0Y/view)
 
 - Poster presented at the Midwest PL Summit (Nov 2024): [Rhyme: A Data-Centric Expressive Query Language for Nested Data Structures](https://docs.google.com/drawings/d/16PsXYFohtb8WhrVIC3y53FeYj3xHDZvQUcSp5fyd0Bg/view)
+
+Papers
 
 - Paper published at FLOPS (Jun 2024):
   [Rhyme: A Data-Centric Multi-Paradigm Query Language based on Functional Logic Metaprogramming](https://www.cs.purdue.edu/homes/rompf/papers/abeysinghe-preprint2401.pdf)
@@ -65,7 +67,7 @@ To learn more about the different ways of using Rhyme, including different APIs,
 - Paper published at PADL (Jan 2024):
   [Rhyme: A Data-Centric Expressive Query Language for Nested Data Structures](https://www.cs.purdue.edu/homes/rompf/papers/abeysinghe-padl24.pdf)
 
-- An interactive blog post introducing (an early version of) Rhyme:
+- An interactive blog post introducing an early version of Rhyme:
   [Let's build a Query Language!](https://tiarkrompf.github.io/notes/?/js-queries/)
 
 

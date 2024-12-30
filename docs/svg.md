@@ -40,8 +40,9 @@ display({
 Using Rhyme queries, we can produce shapes based on data to draw custom plots.
 
 In this example, notice how we use the same facilities to draw a collection of rects or 
-circles, one per data point, or a polyline, which is a single covering and entire list of data 
-points. Note also how the code for the individual plots is reused between the all-in-one
+circles, one per data point, or a polyline, which is a single SVG node covering 
+an entire list of data points. 
+Note also how the code for the individual plots is reused between the all-in-one
 and the side-by-side views.
 
 
