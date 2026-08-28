@@ -55,11 +55,17 @@ To learn more about the different ways of using Rhyme, including different APIs,
 
 Presentations
 
+- Poster presented at VLDB (Sep 2026):
+  [Rhyme Native: Efficient Code Generation for Structured and Semi-Structured Workloads](https://docs.google.com/drawings/d/1TeotAZtuPV6dcESykY9BpHLucu6-Vgg2MZMmkFUaXYc/edit)
+
 - Slides presented at the 24th IFIP WG 2.11 Meeting (Dec 2024): [Rhyme: A Data-Centric Multi-Paradigm Query Language](https://docs.google.com/presentation/d/1yljJLrcbHdGiKhMhAoQkgLJnMqCgEc5Uy6Se0Dz0V0Y/view)
 
 - Poster presented at the Midwest PL Summit (Nov 2024): [Rhyme: A Data-Centric Expressive Query Language for Nested Data Structures](https://docs.google.com/drawings/d/16PsXYFohtb8WhrVIC3y53FeYj3xHDZvQUcSp5fyd0Bg/view)
 
 Papers
+
+- Paper published at VLDB (Aug 2026):
+  [Rhyme Native: Efficient Code Generation for Structured and Semi-Structured Workloads](https://www.vldb.org/pvldb/vol19/p3676-guo.pdf)
 
 - Paper published at FLOPS (Jun 2024):
   [Rhyme: A Data-Centric Multi-Paradigm Query Language based on Functional Logic Metaprogramming](https://www.cs.purdue.edu/homes/rompf/papers/abeysinghe-preprint2401.pdf)
