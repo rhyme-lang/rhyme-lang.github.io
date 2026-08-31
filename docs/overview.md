@@ -16,15 +16,17 @@ Rhyme can represent all the usual query operators like aggregations, joins, grou
 but also supports tensor computations in the style of einops. Rhyme also profits from integration
 with the JS ecosystem, e.g., for producing visualizations as DOM trees, React components, etc.
 
+Rhyme compiles its source queries into executable JavaScript Code by default.
+An experimental C code generator is available as well which provides extraordinary performance with limitations on the queries.
 
 ## Quick Examples
 
 Below is an example that computes a group-by aggregation based on keys:
 ```js
 let data = [
-    {"key": "A", "value": 30},
-    {"key": "B", "value": 20},
-    {"key": "A", "value": 45},
+    { "key": "A", "value": 30 },
+    { "key": "B", "value": 20 },
+    { "key": "A", "value": 45 },
 ]
 // rhyme query
 let query = rh`{ data.*.key: sum(data.*.value) }`
