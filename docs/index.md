@@ -41,11 +41,11 @@ dependencies explicit, optimized, and finally translated to efficient JavaScript
 
 ```js
 // share of total population, per country
-rh`{
+{
   data.*A.country:
-      sum(data.*A.population)
-    / sum(data.*B.population)
-}`
+    sum(data.*A.population) /
+    sum(data.*B.population)
+}
 ```
 
 </div>
@@ -59,22 +59,18 @@ rh`{
 <div class="rhyme-stage-title">3 &middot; Generated Code</div>
 
 ```js
-inp => {
-  let tmp = {}
-  tmp.t1 ??= {}
-  tmp.t2 ??= 0
-  for (let xB in inp.data) {
-    tmp.t2 += inp.data[xB].population
-  }
-  tmp.t0 ??= {}
-  for (let xA in inp.data) {
-    let k = inp.data[xA].country
-    tmp.t1[k] ??= 0
-    tmp.t1[k] += inp.data[xA].population
-    tmp.t0[k] = tmp.t1[k] / tmp.t2
-  }
-  return tmp.t0
+t0 ??= {}
+t1 ??= {}
+t2 ??= 0
+for (let xB in data) {
+  t2 += data[xB].population
 }
+for (let xA in data) {
+  t1[data[xA].country] ??= 0
+  t1[data[xA].country] += data[xA].population
+  t0[data[xA].country] = t1[data[xA].country] / t2
+}
+return t0
 ```
 
 </div>
