@@ -12,6 +12,9 @@ The Rhyme test suite explores a number of use cases with helpful examples:
 		full implementation of the 2023 advent of code challenges	 
 	- [C generation (cgen/)](https://github.com/rhyme-lang/rhyme/tree/main/test/cgen/)
 		generating C code for sparse tensors and SQL-style workloads
+	- [JSONBench (json-bench/)](https://github.com/rhyme-lang/rhyme/tree/main/test/json-bench/)
+		the five queries of [JSONBench](https://github.com/ClickHouse/JSONBench) over a stream of
+		Bluesky events in NDJSON form, compiled to C
 	- [Miscellaneous (original/)](https://github.com/rhyme-lang/rhyme/tree/main/test/original/)
 		- [Grouping (grouping.test.js)](https://github.com/rhyme-lang/rhyme/blob/main/test/original/grouping.test.js) 
 		  demontrate various forms of grouping
@@ -28,15 +31,11 @@ The Rhyme test suite explores a number of use cases with helpful examples:
 		  demontrate how to implement recursion using an external driver loop (additional tests)
 		- [Tree paths (se-tree-paths.test.js)](https://github.com/rhyme-lang/rhyme/blob/main/test/semantics/se-tree-paths.test.js) 
 		  demonstrate shape polymorphism using tree-path variables
+	- [TPC-H (tpch/)](https://github.com/rhyme-lang/rhyme/tree/main/test/tpch/)
+		all 22 TPC-H queries expressed in Rhyme and compiled to C, using typed schemas for the
+		CSV input tables (plus alternative formulations of q1 and q17)
 	- [Typing (typing/)](https://github.com/rhyme-lang/rhyme/tree/main/test/typing/)
 		demonstrate experimental typing facility
-
-
-
-
-
-
-
 
 
 ## Interactive Demos
