@@ -137,3 +137,72 @@
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
 
+
+/**
+ * Component: Home "From Query to Code" pipeline
+ * -------------------------------------------------------------------------- */
+
+.rhyme-pipeline {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin: 24px 0 8px;
+}
+
+@media (min-width: 960px) {
+  .rhyme-pipeline {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+.rhyme-stage {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.rhyme-stage-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--vp-c-text-2);
+  margin-bottom: 8px;
+}
+
+/* code blocks fill the column and stay the same height across columns */
+.rhyme-stage div[class*='language-'] {
+  flex: 1;
+  margin: 0;
+  border-radius: 8px;
+}
+
+.rhyme-stage div[class*='language-'] pre {
+  height: 100%;
+}
+
+.rhyme-stage div[class*='language-'] code {
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* IR figure: the SVG draws black on white, so keep a light backdrop in both themes */
+.rhyme-ir {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 12px;
+  overflow: hidden;
+}
+
+.rhyme-ir-img {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+}
